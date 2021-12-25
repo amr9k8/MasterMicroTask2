@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * An Interface to define Main Functions OF Any TopologyApiClass
+ * Regardless The API Data Source (JsonFiles,XmlFiles,TxtFiles,FromDatabase,etc..)  
  * @author Amr
  */
-public interface Functionable {
-    
-   List<Topology> getTopologies();//return  topolgies from datasource
+public interface Functionable  {
+   void setDataStorageParams(DataStorageConfig d); //For Example " FilePath,DB Connection,etc..)
+   DataStorageConfig getDataStorageParams();
+   void LoadTopologiesintoMemory();//return  topolgies from datasource
    void saveTopologies(String topologyID ,String path);
    List<Topology> queryTopologies();//return current topolgies from global array
    Topology queryTopology(String TopologyId); 
@@ -24,5 +26,6 @@ public interface Functionable {
    List<Component> getComponentsWithNetListNode(String topologyID,String Node);
    void deleteTopology(String TopologyId); 
    void deleteAllTopologies(); 
+  
 
 }

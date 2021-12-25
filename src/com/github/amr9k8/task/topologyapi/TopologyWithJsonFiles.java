@@ -13,48 +13,67 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
 /**
- *
+ * API To Deal With JsonFiles 
  * @author Amr
  */
 public class TopologyWithJsonFiles implements  Functionable{
     
      private  List<Topology> topologies = new ArrayList<>() ;
-     private  String FilePath;
+     private  DataStorageConfig storageConfig = new DataStorageConfig("file");
      
      
      /***
       * 
       * @param path 
       */
-     public TopologyWithJsonFiles(String path)
-     {
-         this.FilePath = path;
+     public TopologyWithJsonFiles(DataStorageConfig storageConfig)
+     {    String path = storageConfig.getFilePath();
+          this.storageConfig.setFilePath(path);
+          //System.out.println(this.storageConfig.getFilePath());
      }
      
+     /***
+      * Set File Path
+      * @param d 
+      */
+     @Override
+     public void setDataStorageParams(DataStorageConfig d){
+        String newPath = d.getFilePath();
+        this.storageConfig.setFilePath(newPath); 
+     }
+     
+     @Override
+      public DataStorageConfig getDataStorageParams()
+      {
+          return this.storageConfig;
+      }
+      
    /***
-    * To Get Topolgies from JsonFile
-    * @return 
+    * To Load Topolgies from JsonFile into Memory
     */
      @Override
-     public List<Topology> getTopologies(){
-        List<Topology> topologiesList = new ArrayList<>() ; 
+     public void LoadTopologiesintoMemory(){
         JSONObject jsonTopology;
         BufferedReader file;
         JSONParser jsonParser = new JSONParser();
-        
+         //System.out.println(this.storageConfig.getFilePath());
         try {
-            file = Files.newBufferedReader(Paths.get(this.FilePath), StandardCharsets.UTF_8);
+            file = Files.newBufferedReader(Paths.get(this.storageConfig.getFilePath()), StandardCharsets.UTF_8);
             jsonTopology = (JSONObject) jsonParser.parse(file);
             file.close(); 
         }catch (Exception ex) {
-            System.out.println(ex);
-            return null;
+            if(ex  instanceof IOException)
+                    System.out.println("file not found Enter Valid File");
+            else
+                    System.out.println(ex);
+            return;
            
         }
          String topologyID = (String) jsonTopology.get("id");
@@ -101,9 +120,7 @@ public class TopologyWithJsonFiles implements  Functionable{
        
         Topology t =  new Topology(topologyID, components);
         
-        topologiesList.add(t);
-     
-     return topologiesList;
+        this.topologies.add(t);
    }
    
      /***
