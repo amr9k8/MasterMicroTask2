@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Amr
  */
-public interface TopologyApi {
+public interface Functionable {
     
    List<Topology> getTopologies();//return  topolgies from datasource
    void saveTopologies(String topologyID ,String path);

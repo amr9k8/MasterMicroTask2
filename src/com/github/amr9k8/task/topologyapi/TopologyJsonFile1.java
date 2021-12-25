@@ -22,7 +22,7 @@ import java.util.*;
  *
  * @author Amr
  */
-public class TopologyJsonFile implements  Functionable{
+public class TopologyJsonFile1 implements  Functionable{
     
      private  List<Topology> topologies = new ArrayList<>() ;
      private  String FilePath;
@@ -32,7 +32,7 @@ public class TopologyJsonFile implements  Functionable{
       * 
       * @param path 
       */
-     public TopologyJsonFile(String path)
+     public TopologyJsonFile1(String path)
      {
          this.FilePath = path;
      }
