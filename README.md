@@ -8,9 +8,8 @@ I Choosed Java because :
 3) it's Strong OOP as java embraces  the object-oriented programming
 
 ### What Does this Api Provide
-####this Api can preform set of functions on Any topology.Json File
-###Functions :
-
+#### this Api can preform set of functions on Any topology.Json File
+#### Functions :
 1)  Read Topologies From JsonFile
 2)  Convert a Topology object to JsonObject And Save it in JsonFile
 3)  Search in A JsonFile for A Topology with ID
